@@ -66,6 +66,9 @@ class VideoView extends View {
         if(this.canvasResolve) {
             this.canvasResolve(this.videoView.getCanvas());
         }
+        this.videoView.onAfterDecoded = (decodedFrame, frameType) => {
+            this.onDecode(decodedFrame, frameType);
+        };
     }
 
     async setData(dataSourceId, data) {
@@ -75,7 +78,7 @@ class VideoView extends View {
                 if(!isDefined(this.videoView)) {
                     this.createVideoView(values[i].frameData.compression.toLowerCase());
                 }
-                this.videoView.updateVideo(values[i]);
+                await this.videoView.updateVideo(values[i]);
             }
         }
     }
@@ -92,16 +95,21 @@ class VideoView extends View {
     }
 
     reset() {
+        super.reset();
         if(isDefined(this.videoView)) {
             this.videoView.reset();
         }
     }
 
     destroy() {
-        if (this.videoView) {
+        console.warn('Destroying VideoView');
+        super.destroy();
+        if(isDefined(this.videoView)) {
             this.videoView.destroy();
         }
     }
+
+    onDecode(decodedFrame, frameType) {}
 }
 
 export default VideoView;
