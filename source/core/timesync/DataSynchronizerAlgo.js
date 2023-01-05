@@ -45,7 +45,7 @@ class DataSynchronizerAlgo {
             while (this.computeNextData(tsRef, clockTimeRef)) ;
 
         }, this.timerResolution);
-        console.warn(`Started Replay Algorithm with tsRef=${new Date(tsRef).toISOString()}`);
+        console.warn(`Started Algorithm with  tsRef=${new Date(tsRef).toISOString()}`);
     }
 
     /**
@@ -72,6 +72,8 @@ class DataSynchronizerAlgo {
 
     onData(dataSourceId, dataBlock) {
     }
+
+    checkStart() {}
 
     /**
      * Change the dataSource status
