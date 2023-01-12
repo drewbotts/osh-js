@@ -188,7 +188,8 @@ class DataSynchronizer {
                 for (let dataSource of this.dataSources) {
                     const dataSourceForWorker = await this.createDataSourceForWorker(dataSource);
                     dataSourcesForWorker.push(dataSourceForWorker);
-                    mode = dataSource.mode;
+                    dataSource.mode = mode;
+                    // mode = dataSource.mode;
                 }
                 this.synchronizerWorker = new DataSynchronizerWorker();
                 this.handleWorkerMessage();
